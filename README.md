@@ -2,7 +2,7 @@
 
 ![screenshot](https://github.com/GH0STH4CKER/Vehicle_Info_SL/blob/main/vehicle_info_ss.png?raw=true)
 
-<h1> This Tool Can Find Only Few Deails </h2>
+<h1> This Tool Can Find Deails Displayed In Above ScreenShot </h2>
 
 <h2>Basic Instructions (Termux) :</h2> <br>
 
