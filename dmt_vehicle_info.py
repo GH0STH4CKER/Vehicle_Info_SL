@@ -1,4 +1,4 @@
-import requests , socket , time 
+import requests , socket , time , re,sys
 from colorama import Fore , init
 init()
 Lred = Fore.LIGHTRED_EX
@@ -6,12 +6,19 @@ Lyel = Fore.LIGHTYELLOW_EX
 Lgreen = Fore.LIGHTGREEN_EX
 Lcyan = Fore.LIGHTCYAN_EX
 
-ban = "      VEHICLE INFO SL"
-cred = "----- [+] Made by GH0STH4CK3R ------"
+def slowprint(str):
+   for c in str :
+     sys.stdout.write(Lyel + c)
+     sys.stdout.flush()
+     time.sleep(0.07)
+
+ban = """
+ █ █ █▀▀ █ █ █ █▀▀ █   █▀▀   █ █▄ █ █▀▀ █▀█   █▀ █  
+ ▀▄▀ ██▄ █▀█ █ █▄▄ █▄▄ ██▄   █ █ ▀█ █▀  █▄█   ▄█ █▄▄"""
+cred = "------------ [+] Made by GH0STH4CK3R ---------------\n"
 
 print(Lgreen + ban)
-print(Lyel + cred)
-
+slowprint(cred)
 
 try:
     ip = socket.gethostbyname("www.google.com")
@@ -36,24 +43,58 @@ rc = res.status_code
 details =[]
 
 if rc == 200 :
-    xmldata = str(res.text)
+    xmldata = res.text 
     #print(xmldata)
+    #  Find tags
+
+    xml2 = xmldata
+
+    xml2 = xml2.replace("><", ">\n<")
+
+    xml_filter_ptn = r'<(\w|>|/|<|-| )*>'
+    match = re.finditer(xml_filter_ptn, xml2, re.MULTILINE)
+
+    xml_detail = []
+    full_details = {}
+
+    for i in match:
+        xml_detail.append(i.group())
+
+    detail_filter_ptn = r">(\w| |-)*<"
+    name_filter_ptn = r"<(\w| |-)*>"
+
+    for i in xml_detail:
+        value = re.search(detail_filter_ptn, i)
+        name = re.search(name_filter_ptn, i)
+        if value:
+            # value
+            value = value.group().strip(">")
+            value = value.strip("<")
+            value = value.strip()
+
+            # name
+            name = name.group().strip(">")
+            name = name.strip("<")
+            name = name.strip()
+
+            full_details[name] = value      
     
-    import xml.etree.ElementTree as ET
-    root = ET.fromstring(xmldata)
-    for i in root.itertext():
-        details.append(i)
-    print(Lcyan + "")
-    print("***** Vehicle Details *****")
-    print(Lgreen + "")
-    print("Number Plate      : ",details[2])    
-    print("Absolute Owner    : ",details[3])    
-    print("Engine No         : ",details[4])    
-    print("Vehicle Type      : ",details[5])    
-    print("Vehicle Make      : ",details[6])    
-    print("Vehicle Model     : ",details[7])    
-    print("Manufactured Year : ",details[8])    
-    print("Special Condition : ",details[9])    
+    fdts = full_details
+    spc = ""
+    print(" ")
+    for k, e in fdts.items():
+    
+        if len(k) < 21 :
+        	stm = 21 - len(k) 
+        	spc = " " * stm
+        else :
+        	spc = ""
+
+        if k == "RequestId" or k == "TransactionCharge" :
+            pass
+        else :
+            print (k + spc + ' : ' + str(e))
+  
 
 else :
     print("Http Error !",rc)    
