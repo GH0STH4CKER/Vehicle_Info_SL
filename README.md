@@ -1,6 +1,6 @@
 # Python program to check vehicle info in sri lanka
 
-![screenshot](https://github.com/GH0STH4CKER/Vehicle_Info_SL/blob/main/dmt_vehicleinfo.PNG?raw=true)
+![screenshot](https://github.com/GH0STH4CKER/Vehicle_Info_SL/blob/main/vehicle_info_ss.png?raw=true)
 
 <h1> This Tool Can Find Only Few Deails </h2>
 
